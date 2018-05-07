@@ -37,8 +37,8 @@ RPCPASSWORD=<your random rpc password>
 
 FEE=0.5
 DONATION=0.5
-DASH_WALLET_URL=https://github.com/dashpay/dash/releases/download/v0.12.2.2/dashcore-0.12.2.2-linux64.tar.gz
-DASH_WALLET_ZIP=dashcore-0.12.2.2-linux64.tar.gz
+DASH_WALLET_URL=https://github.com/dashpay/dash/releases/download/v0.12.2.3/dashcore-0.12.2.3-linux64.tar.gz
+DASH_WALLET_ZIP=dashcore-0.12.2.3-linux64.tar.gz
 DASH_WALLET_LOCAL=dashcore-0.12.2
 P2POOL_FRONTEND=https://github.com/justino/p2pool-ui-punchy
 P2POOL_FRONTEND2=https://github.com/johndoe75/p2pool-node-status
