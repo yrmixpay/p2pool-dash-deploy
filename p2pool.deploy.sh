@@ -28,18 +28,18 @@
 # Variables
 # UPDATE THEM TO MATCH YOUR SETUP !!
 #
-PUBLIC_IP=<your public IP address>
-EMAIL=<your email address>
-PAYOUT_ADDRESS=<your DASH wallet address to receive fees>
-USER_NAME=<linux user name>
-RPCUSER=<your random rpc user name>
-RPCPASSWORD=<your random rpc password>
+PUBLIC_IP=91.121.245.179
+EMAIL=yrmixpay@gmail.com
+PAYOUT_ADDRESS=YkVP9cP5WsdSQApA7V7e3DDNV3iJKU9E7c
+USER_NAME=yrmix
+RPCUSER=yrmixcoin
+RPCPASSWORD=3bdba63cf0ba40a8637zasdvdsv21a95332bc88f
 
 FEE=0.5
-DONATION=0.5
-DASH_WALLET_URL=https://github.com/dashpay/dash/releases/download/v0.12.2.3/dashcore-0.12.2.3-linux64.tar.gz
-DASH_WALLET_ZIP=dashcore-0.12.2.3-linux64.tar.gz
-DASH_WALLET_LOCAL=dashcore-0.12.2
+DONATION=0.0
+YRMIX_WALLET_URL=https://github.com/yrmixpay/yrmixcoin/releases/download/v0.16.3.1/yrmixcoin-0.16.3-linux64.tar.gz
+YRMIX_WALLET_ZIP=yrmixcoin-0.16.3-linux64.tar.gz
+YRMIX_WALLET_LOCAL=yrmixcoin-0.16.3
 P2POOL_FRONTEND=https://github.com/justino/p2pool-ui-punchy
 P2POOL_FRONTEND2=https://github.com/johndoe75/p2pool-node-status
 P2POOL_FRONTEND3=https://github.com/hardcpp/P2PoolExtendedFrontEnd
@@ -53,15 +53,16 @@ sudo apt-get --yes install gcc g++
 sudo apt-get --yes install git
 
 #
-# Get latest p2pool-DASH
+# Get latest p2pool-YRMIX
 #
 mkdir git
 cd git
-git clone https://github.com/dashpay/p2pool-dash
-cd p2pool-dash
-git submodule init
-git submodule update
-cd dash_hash
+git clone https://github.com/yrmixpay/p2pool-yrmixcoin
+cd p2pool-yrmixcoin
+#git submodule init
+#git submodule update
+git clone https://github.com/yrmixpay/yrmixcoin_hash
+cd yrmixcoin_hash
 python setup.py install --user
 
 #
@@ -79,56 +80,56 @@ git clone $P2POOL_FRONTEND3 ext
 # Get specific version of DASH wallet for Linux
 #
 cd ~
-mkdir dash
-cd dash
-wget $DASH_WALLET_URL
-tar -xvzf $DASH_WALLET_ZIP
-rm $DASH_WALLET_ZIP
+mkdir yrmixcoin
+cd yrmixcoin
+wget $YRMIX_WALLET_URL --no-check-certificate
+tar -xvzf $YRMIX_WALLET_ZIP
+rm $YRMIX_WALLET_ZIP
 
 #
 # Copy DASH daemon
 #
-sudo cp ~/dash/$DASH_WALLET_LOCAL/bin/dashd /usr/bin/dashd
-sudo cp ~/dash/$DASH_WALLET_LOCAL/bin/dash-cli /usr/bin/dash-cli
-sudo chown -R $USER_NAME:$USER_NAME /usr/bin/dashd
-sudo chown -R $USER_NAME:$USER_NAME /usr/bin/dash-cli
+sudo cp ~/yrmixcoin/$YRMIX_WALLET_LOCAL/bin/yrmixcoind /usr/bin/yrmixcoind
+sudo cp ~/yrmixcoin/$YRMIX_WALLET_LOCAL/bin/yrmixcoin-cli /usr/bin/yrmixcoin-cli
+sudo chown -R $USER_NAME:$USER_NAME /usr/bin/yrmixcoind
+sudo chown -R $USER_NAME:$USER_NAME /usr/bin/yrmixcoin-cli
 
 #
 # Prepare DASH configuration
 #
-mkdir ~/.dashcore
-cat <<EOT >> ~/.dashcore/dash.conf
+mkdir ~/.yrmixcoin
+cat <<EOT >> ~/.yrmixcoin/yrmixcoin.conf
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
-alertnotify=echo %s | mail -s "DASH Alert" $EMAIL
+alertnotify=echo %s | mail -s "YRMIX Alert" $EMAIL
 server=1
 daemon=1
 EOT
 
 #
-# Get latest DASH core
+# Get latest YRMIX core
 #
 cd ~/git
-git clone https://github.com/dashpay/dash
+git clone https://github.com/yrmixpay/yrmixcoin
 
 #
-# Install DASH daemon service and set to Auto Start
+# Install YRMIX daemon service and set to Auto Start
 #
-cd /etc/systemd/system
-sudo ln -s /home/$USER_NAME/git/dash/contrib/init/dashd.service dashd.service
-sudo sed -i 's/User=dashcore/User='"$USER_NAME"'/g' dashd.service
-sudo sed -i 's/Group=dashcore/Group='"$USER_NAME"'/g' dashd.service
-sudo sed -i 's/\/var\/lib\/dashd/\/home\/'"$USER_NAME"'\/.dashcore/g' dashd.service
-sudo sed -i 's/\/etc\/dashcore\/dash.conf/\/home\/'"$USER_NAME"'\/.dashcore\/dash.conf/g' dashd.service
+	
+sudo ln -s /home/$USER_NAME/git/yrmixcoin/contrib/init/yrmixcoind.service yrmixcoind.service
+sudo sed -i 's/User=yrmixcoin/User='"$USER_NAME"'/g' yrmixcoind.service
+sudo sed -i 's/Group=yrmixcoin/Group='"$USER_NAME"'/g' yrmixcoind.service
+sudo sed -i 's/\/var\/lib\/yrmixcoind/\/home\/'"$USER_NAME"'\/.yrmixcoin/g' yrmixcoind.service
+sudo sed -i 's/\/etc\/yrmixcoin\/yrmixcoin.conf/\/home\/'"$USER_NAME"'\/.yrmixcoin\/yrmixcoin.conf/g' yrmixcoind.service
 sudo systemctl daemon-reload
-sudo systemctl enable dashd
-sudo service dashd start
+sudo systemctl enable yrmixcoind
+sudo service yrmixcoind start
 
 #
 # Prepare p2pool startup script
 #
 cat <<EOT >> ~/p2pool.start.sh
-python ~/git/p2pool-dash/run_p2pool.py --external-ip $PUBLIC_IP -f $FEE --give-author $DONATION -a $PAYOUT_ADDRESS
+python ~/git/p2pool-yrmixcoin/run_p2pool.py --external-ip $PUBLIC_IP -f $FEE --give-author $DONATION -a $PAYOUT_ADDRESS
 EOT
 
 if [ $? -eq 0 ]
@@ -139,7 +140,7 @@ echo You can start p2pool instance by command:
 echo
 echo bash ~/p2pool.start.sh
 echo
-echo NOTE: you will need to wait until DASH daemon has finished
+echo NOTE: you will need to wait until YRMIXCOIN daemon has finished
 echo blockchain synchronization before the p2pool instance is usable.
 echo
 fi
