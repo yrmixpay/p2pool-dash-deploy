@@ -57,8 +57,8 @@ sudo apt-get --yes install git
 #
 mkdir git
 cd git
-git clone https://github.com/yrmixpay/p2pool-yrmixcoin
-cd p2pool-yrmixcoin
+git clone https://github.com/yrmixpay/p2pool-yrmix
+cd p2pool-yrmix
 #git submodule init
 #git submodule update
 git clone https://github.com/yrmixpay/yrmixcoin_hash
