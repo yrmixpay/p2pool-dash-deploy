@@ -129,7 +129,7 @@ sudo service yrmixcoind start
 # Prepare p2pool startup script
 #
 cat <<EOT >> ~/p2pool.start.sh
-python ~/git/p2pool-yrmixcoin/run_p2pool.py --external-ip $PUBLIC_IP -f $FEE --give-author $DONATION -a $PAYOUT_ADDRESS
+python ~/git/p2pool-yrmix/run_p2pool.py --external-ip $PUBLIC_IP -f $FEE --give-author $DONATION -a $PAYOUT_ADDRESS
 EOT
 
 if [ $? -eq 0 ]
