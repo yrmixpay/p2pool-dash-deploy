@@ -28,7 +28,7 @@
 # Variables
 # UPDATE THEM TO MATCH YOUR SETUP !!
 #
-PUBLIC_IP=91.121.245.179
+PUBLIC_IP=46.105.148.127
 EMAIL=yrmixpay@gmail.com
 PAYOUT_ADDRESS=YkVP9cP5WsdSQApA7V7e3DDNV3iJKU9E7c
 USER_NAME=yrmix
@@ -77,7 +77,7 @@ git clone $P2POOL_FRONTEND2 status
 git clone $P2POOL_FRONTEND3 ext
 
 #
-# Get specific version of DASH wallet for Linux
+# Get specific version of Yrmixcoin wallet for Linux
 #
 cd ~
 mkdir yrmixcoin
@@ -87,7 +87,7 @@ tar -xvzf $YRMIX_WALLET_ZIP
 rm $YRMIX_WALLET_ZIP
 
 #
-# Copy DASH daemon
+# Copy Yrmixcoin daemon
 #
 sudo cp ~/yrmixcoin/$YRMIX_WALLET_LOCAL/bin/yrmixcoind /usr/bin/yrmixcoind
 sudo cp ~/yrmixcoin/$YRMIX_WALLET_LOCAL/bin/yrmixcoin-cli /usr/bin/yrmixcoin-cli
@@ -95,7 +95,7 @@ sudo chown -R $USER_NAME:$USER_NAME /usr/bin/yrmixcoind
 sudo chown -R $USER_NAME:$USER_NAME /usr/bin/yrmixcoin-cli
 
 #
-# Prepare DASH configuration
+# Prepare Yrmixcoin configuration
 #
 mkdir ~/.yrmixcoin
 cat <<EOT >> ~/.yrmixcoin/yrmixcoin.conf
